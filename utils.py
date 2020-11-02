@@ -18,54 +18,6 @@ def get_details(name):
         dimensions = ['sensor', 'location', 'frequency']
         path = './Data/PAM2'
 
-    elif (name == 'UCI'):
-        num_classes = 6
-        sensors = ['body_acc', 'gyr', 'total_acc']
-        locations = ['waist']
-        label_names = ['Walking', 'Walking_Upstairs', 'Walking_Downstairs',
-                       'Sitting', 'Standing', 'Laying']
-        f_hz = 50
-        dimensions = ['sensor']
-        path = './Data/UCI_HAR'
-
-    elif (name == 'SHL'):
-        num_classes = 8
-        sensors = ['acc', 'gyr', 'linear_acc']
-        locations = ['pocket']
-        label_names = ['Still', 'Walk', 'Run',
-                       'Bike', 'Car', 'Bus', 'Train', 'Subway']
-        f_hz = 100
-        dimensions = ['sensor', 'frequency']
-        path = './Data/SHL'
-
-    elif (name == 'OPP'):
-        num_classes = 4
-        sensors = ['acc', 'gyr', 'mag']
-        locations = ['Back', 'RUA', 'RLA', 'LUA', 'LLA']
-        label_names = ['Stand', 'Walk', 'Sit', 'Lie']
-        f_hz = 25
-        dimensions = ['sensor', 'location']
-        path = './Data/OPP'
-
-    elif (name == 'OPP_g'):
-        num_classes = 17
-        sensors = ['acc', 'gyr', 'mag']
-        locations = ['Back', 'RUA', 'RLA', 'LUA', 'LLA']
-        label_names = ['Stand', 'Walk', 'Sit', 'Lie']
-        f_hz = 25
-        dimensions = ['sensor', 'location']
-        path = 'F:/Vikranth/Arm/Datasets/Opp'
-
-    elif (name == 'mydata'):
-        num_classes = 4
-        sensors = ['acc', 'gyr']
-        locations = ['left_wrist', 'right_wrist']
-        label_names = [
-            'sitting(still)', 'sitting(computer use)', 'walking', 'standing(still)']
-        f_hz = 25
-        dimensions = []
-        path = './Motionsense'
-
     else:
         print("No such dataset")
 
@@ -82,67 +34,6 @@ def load_dataset(name, path, num_classes):
         X_test0 = np.load(os.path.join(path, 'X_test_{}.npy'.format(name)))
         y_test_binary = np.load(os.path.join(
             path, 'y_test_{}.npy'.format(name)))
-
-    elif (name == 'UCI'):
-        X_train0 = np.load(os.path.join(path, 'X_train_{}.npy'.format(name)))
-        y_train = np.load(os.path.join(path, 'y_train_{}.npy'.format(name)))
-        X_test0 = np.load(os.path.join(path, 'X_test_{}.npy'.format(name)))
-        y_test = np.load(os.path.join(path, 'y_test_{}.npy'.format(name)))
-        X_val0 = X_test0[:500]
-        y_val = y_test[:500]
-        y_train_binary = keras.utils.to_categorical(y_train, num_classes)
-        y_test_binary = keras.utils.to_categorical(y_test, num_classes)
-        y_val_binary = keras.utils.to_categorical(y_val, num_classes)
-
-    elif (name == 'SHL'):
-        X_train0 = np.load(os.path.join(path, 'X_train_{}.npy'.format(name)))
-        y_train_binary = np.load(os.path.join(
-            path, 'y_train_{}.npy'.format(name)))
-        X_val0 = np.load(os.path.join(path, 'X_val_{}.npy'.format(name)))
-        y_val_binary = np.load(os.path.join(path, 'y_val_{}.npy'.format(name)))
-        X_test0 = np.load(os.path.join(path, 'X_test_{}.npy'.format(name)))
-        y_test_binary = np.load(os.path.join(
-            path, 'y_test_{}.npy'.format(name)))
-
-    elif (name == 'OPP'):
-        X_train0 = np.load(os.path.join(path, 'X_train_{}.npy'.format(name)))
-        y_train = np.load(os.path.join(path, 'y_train_{}.npy'.format(name)))
-        X_test0 = np.load(os.path.join(path, 'X_test_{}.npy'.format(name)))
-        y_test = np.load(os.path.join(path, 'y_test_{}.npy'.format(name)))
-        X_val0 = X_test0
-        y_val = y_test
-        y_train_binary = keras.utils.to_categorical(y_train, num_classes)
-        y_test_binary = keras.utils.to_categorical(y_test, num_classes)
-        y_val_binary = keras.utils.to_categorical(y_val, num_classes)
-
-    elif (name == 'OPP_g'):
-        X_train0 = np.load(os.path.join(path, 'X_train_OPP.npy'))
-        y_train = np.load(os.path.join(path, 'y_train_OPP.npy'))
-        X_test0 = np.load(os.path.join(path, 'X_test_OPP.npy'))
-        y_test = np.load(os.path.join(path, 'y_test_OPP.npy'))
-        X_val0 = X_test0
-        y_val = y_test
-        y_train_binary = keras.utils.to_categorical(y_train, num_classes)
-        y_test_binary = keras.utils.to_categorical(y_test, num_classes)
-        y_val_binary = keras.utils.to_categorical(y_val, num_classes)
-
-    elif (name == 'mydata'):
-        X_data0 = np.load(os.path.join(path, 'X_{}.npy'.format(name)))
-        y_data = np.load(os.path.join(path, 'y_{}.npy'.format(name)))
-        np.random.seed(42)
-        p = np.random.permutation(y_data.shape[0])
-        y_data = y_data[p]
-        X_data0 = X_data0[p]
-        z = 500
-        X_train0 = X_data0[:z]
-        y_train = y_data0[:z]
-        X_test0 = X_data0[z:]
-        y_test = y_data0[z:]
-        X_val0 = X_test0
-        y_val = y_test
-        y_train_binary = keras.utils.to_categorical(y_train, num_classes)
-        y_test_binary = keras.utils.to_categorical(y_test, num_classes)
-        y_val_binary = keras.utils.to_categorical(y_val, num_classes)
 
     else:
         print("No such dataset")
