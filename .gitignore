@@ -25,3 +25,7 @@ Data/
 data/
 Models/
 logs/
+
+# Files
+*.pptx
+*.ppt
